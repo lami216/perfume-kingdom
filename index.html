@@ -2,8 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مملكة العطور - أفضل العطور الأصلية في موريتانيا | Mamlakat Al Otoor</title>
-  <meta name="description" content="مملكة العطور - متجر متخصص في بيع العطور الأصلية مع توصيل مجاني لجميع الولايات والدفع عند الاستلام.">
+  <title>مملكة العطور | Mamlakat Al Otoor</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -37,23 +36,18 @@
       margin: auto;
       padding: 2rem;
     }
-    .search-box {
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .search-box input {
-      width: 80%;
-      max-width: 400px;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
+    #search-input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #ccc;
       border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 2rem;
     }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
-      margin-top: 2rem;
     }
     .product {
       background: white;
@@ -73,10 +67,16 @@
       margin: 0.5rem 0;
       color: #2c2c2c;
     }
-    .product p {
+    .product .desc {
       font-size: 0.95rem;
       color: #666;
+      margin: 0.5rem 0;
+    }
+    .product .price {
+      font-size: 1.1rem;
+      color: #b8860b;
       margin-bottom: 1rem;
+      font-weight: bold;
     }
     .product button {
       background: linear-gradient(to right, #d4af37, #b8860b);
@@ -102,7 +102,10 @@
       color: #2c2c2c;
       margin-bottom: 1rem;
     }
-    .info ul { list-style: none; padding: 0; }
+    .info ul {
+      list-style: none;
+      padding: 0;
+    }
     .info ul li {
       font-size: 1rem;
       margin: 0.5rem 0;
@@ -141,28 +144,26 @@
   <header>
     <h1>مملكة العطور | Mamlakat Al Otoor</h1>
     <p>توصيل مجاني لجميع أنحاء موريتانيا - الدفع عند الاستلام في نواكشوط</p>
-  </header>  <div class="container">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="ابحث عن عطر بالاسم..." oninput="filterProducts()">
-    </div><h2>عطورنا المختارة</h2>
-<div class="product-grid" id="product-grid"></div>
-
-<div class="info">
-  <h2>لماذا تختار مملكة العطور؟</h2>
-  <ul>
-    <li>عطور أصلية مضمونة 100%</li>
-    <li>توصيل مجاني لجميع الولايات</li>
-    <li>الدفع عند الاستلام في نواكشوط</li>
-    <li>خدمة زبناء سريعة وموثوقة</li>
-  </ul>
-</div>
-
-<div class="info">
-  <h2>من نحن</h2>
-  <p>مملكة العطور هي مشروع متخصص في بيع العطور الأصلية بأسعار مناسبة وخدمة توصيل سريعة. هدفنا رضا الزبون وتوفير أفضل الروائح لكل الأذواق.</p>
-</div>
-
-  </div>  <footer>
+  </header>
+  <div class="container">
+    <input type="text" id="search-input" placeholder="ابحث باسم العطر...">
+    <h2>عطورنا المختارة</h2>
+    <div class="product-grid" id="product-grid"></div>
+    <div class="info">
+      <h2>لماذا تختار مملكة العطور؟</h2>
+      <ul>
+        <li>عطور أصلية مضمونة 100%</li>
+        <li>توصيل مجاني لجميع الولايات</li>
+        <li>الدفع عند الاستلام في نواكشوط</li>
+        <li>خدمة زبناء سريعة وموثوقة</li>
+      </ul>
+    </div>
+    <div class="info">
+      <h2>من نحن</h2>
+      <p>مملكة العطور هي مشروع متخصص في بيع العطور الأصلية بأسعار مناسبة وخدمة توصيل سريعة. هدفنا رضا الزبون وتوفير أفضل الروائح لكل الأذواق.</p>
+    </div>
+  </div>
+  <footer>
     © 2025 مملكة العطور | Perfume Kingdom
     <div class="social">
       <a href="tel:+22246099296" title="اتصال"><i class="fas fa-phone"></i></a>
@@ -170,43 +171,50 @@
       <a href="https://www.facebook.com/share/16NLtNg1nL/" title="فيسبوك" target="_blank"><i class="fab fa-facebook-f"></i></a>
       <a href="https://www.tiktok.com/@perfume_kingdom_?_t=ZM-8wlUir02S5F&_r=1" title="تيك توك" target="_blank"><i class="fab fa-tiktok"></i></a>
     </div>
-  </footer>  <script>
+  </footer>
+  <script>
     const products = [
-      { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', img: 'Moosouf.jpg' },
-      { name: 'جون بول', desc: 'عطر شبابي عصري بنفحات حارة', img: 'jean_paul_gaultier.jpg' },
-      { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', img: 'Dior_sauvage.jpg' },
-      { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', img: 'officer.jpg' },
-      { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', img: 'Club_de_nuit.jpg' },
-      { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', img: 'Imtheking.jpg' },
-    ];
+      { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', price: '3200 أوقية', img: 'Moosouf.jpg' },
+      { name: 'جون بول', desc: 'عطر شبابي عصري بنفحات حارة', price: '3000 أوقية', img: 'jean_paul_gaultier.jpg' },
+      { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', price: '3900 أوقية', img: 'Dior_sauvage.jpg' },
+      { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', price: '2800 أوقية', img: 'officer.jpg' },
+      { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', price: '3600 أوقية', img: 'Club_de_nuit.jpg' },
+      { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', price: '3400 أوقية', img: 'Imtheking.jpg' },
+    ];const productGrid = document.getElementById('product-grid');
+const searchInput = document.getElementById('search-input');
 
-    const productGrid = document.getElementById('product-grid');
+function displayProducts(list) {
+  productGrid.innerHTML = '';
+  list.forEach(product => {
+    const html = `
+      <div class="product">
+        <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/200?text=عطر'">
+        <h3>${product.name}</h3>
+        <p class="desc">${product.desc}</p>
+        <p class="price">${product.price}</p>
+        <button onclick="order('${encodeURIComponent(product.name)}')">اطلب الآن</button>
+      </div>
+    `;
+    productGrid.insertAdjacentHTML('beforeend', html);
+  });
+}
 
-    function renderProducts(filtered = []) {
-      productGrid.innerHTML = '';
-      (filtered.length ? filtered : products).forEach((product) => {
-        const html = `
-          <div class="product">
-            <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/250x250/fff5e6/333?text=صورة+غير+متوفرة'">
-            <h3>${product.name}</h3>
-            <p>${product.desc}</p>
-            <button onclick="order('${encodeURIComponent(product.name)}')">اطلب الآن</button>
-          </div>
-        `;
-        productGrid.insertAdjacentHTML('beforeend', html);
-      });
-    }
+function order(productName) {
+  window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
+}
 
-    function filterProducts() {
-      const keyword = document.getElementById('searchInput').value.trim();
-      const results = products.filter(p => p.name.includes(keyword));
-      renderProducts(results);
-    }
+searchInput.addEventListener('input', function () {
+  const value = this.value.trim();
+  if (value) {
+    const filtered = products.filter(p => p.name.includes(value));
+    displayProducts(filtered);
+  } else {
+    displayProducts(products);
+  }
+});
 
-    function order(productName) {
-      window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
-    }
+displayProducts(products);
 
-    renderProducts();
-  </script></body>
+  </script>
+</body>
 </html>
