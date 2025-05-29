@@ -77,39 +77,29 @@
     `;
     productGrid.insertAdjacentHTML('beforeend', html);
 
-    // إحضار عدد الطلبات من CountAPI
-    fetch(`https://api.countapi.xyz/get/mamlakat/${key}`)
+    // تهيئة العدّاد عند أول زيارة (create=true)
+    fetch(`https://api.countapi.xyz/get/mamlakat/${key}?create=true`)
       .then(res => res.json())
       .then(data => {
         const count = data.value ?? 0;
         document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: ${count}`;
-      })
-      .catch(() => {
-        document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: 0`;
       });
   });
 
-  // عند النقر على زر الطلب
   function order(productName) {
-    // زيادة العداد
-    fetch(`https://api.countapi.xyz/hit/mamlakat/${productName}`)
-      .then(() => {
-        // إعادة تحميل العداد مباشرة
-        fetch(`https://api.countapi.xyz/get/mamlakat/${productName}`)
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById(`count-${productName}`).innerText = `📦 عدد الطلبات: ${data.value}`;
-          });
+    fetch(`https://api.countapi.xyz/update/mamlakat/${productName}/?amount=1&create=true`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById(`count-${productName}`).innerText = `📦 عدد الطلبات: ${data.value}`;
       });
 
-    // الانتقال للواتساب
     window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
   }
 
-  // عداد الزيارات
-  fetch('https://api.countapi.xyz/hit/mamlakat/visits')
+  // عداد الزيارات - تهيئة ثم زيادة
+  fetch('https://api.countapi.xyz/update/mamlakat/visits/?amount=1&create=true')
     .then(res => res.json())
     .then(data => {
       document.getElementById('visit-counter').innerText = `👁️ عدد الزيارات: ${data.value}`;
     });
-  </script>
+     </script>
