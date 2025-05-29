@@ -53,42 +53,63 @@
     </div>
   </footer>
   <script>
-    const products = [
-      { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', img: 'https://m.media-amazon.com/images/I/61Ar72XdNqL._AC_SY450_.jpg' },
-      { name: 'جوني بول', desc: 'عطر شبابي عصري بنفحات حارة', img: 'https://m.media-amazon.com/images/I/71zFq6fAlOL._AC_UL1500_.jpg' },
-      { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', img: 'https://m.media-amazon.com/images/I/61U1ZlHjTUL._AC_SY355_.jpg' },
-      { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', img: 'https://m.media-amazon.com/images/I/61C1uU23sAL._AC_SY355_.jpg' },
-      { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', img: 'https://m.media-amazon.com/images/I/61vAlOLP-4L._AC_SX466_.jpg' },
-      { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', img: 'https://m.media-amazon.com/images/I/61vVDzR6R-L._AC_UL1500_.jpg' },
-    ];const productGrid = document.getElementById('product-grid');
+  const products = [
+    { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', img: 'https://m.media-amazon.com/images/I/61Ar72XdNqL._AC_SY450_.jpg' },
+    { name: 'جوني بول', desc: 'عطر شبابي عصري بنفحات حارة', img: 'https://m.media-amazon.com/images/I/71zFq6fAlOL._AC_UL1500_.jpg' },
+    { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', img: 'https://m.media-amazon.com/images/I/61U1ZlHjTUL._AC_SY355_.jpg' },
+    { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', img: 'https://m.media-amazon.com/images/I/61C1uU23sAL._AC_SY355_.jpg' },
+    { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', img: 'https://m.media-amazon.com/images/I/61vAlOLP-4L._AC_SX466_.jpg' },
+    { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', img: 'https://m.media-amazon.com/images/I/61vVDzR6R-L._AC_UL1500_.jpg' },
+  ];
 
-products.forEach((product, index) => {
-  const key = encodeURIComponent(product.name);
-  const html = `
-    <div class="product">
-      <img src="${product.img}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>${product.desc}</p>
-      <button onclick="order('${key}')">اطلب الآن</button>
-      <div class="counter" id="count-${key}">📦 عدد الطلبات: ...</div>
-    </div>
-  `;
-  productGrid.insertAdjacentHTML('beforeend', html);
+  const productGrid = document.getElementById('product-grid');
 
-  fetch(`https://api.countapi.xyz/get/mamlakat/${key}`)
+  products.forEach((product) => {
+    const key = encodeURIComponent(product.name);
+    const html = `
+      <div class="product">
+        <img src="${product.img}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>${product.desc}</p>
+        <button onclick="order('${key}')">اطلب الآن</button>
+        <div class="counter" id="count-${key}">📦 عدد الطلبات: ...</div>
+      </div>
+    `;
+    productGrid.insertAdjacentHTML('beforeend', html);
+
+    // إحضار عدد الطلبات من CountAPI
+    fetch(`https://api.countapi.xyz/get/mamlakat/${key}`)
+      .then(res => res.json())
+      .then(data => {
+        const count = data.value ?? 0;
+        document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: ${count}`;
+      })
+      .catch(() => {
+        document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: 0`;
+      });
+  });
+
+  // عند النقر على زر الطلب
+  function order(productName) {
+    // زيادة العداد
+    fetch(`https://api.countapi.xyz/hit/mamlakat/${productName}`)
+      .then(() => {
+        // إعادة تحميل العداد مباشرة
+        fetch(`https://api.countapi.xyz/get/mamlakat/${productName}`)
+          .then(res => res.json())
+          .then(data => {
+            document.getElementById(`count-${productName}`).innerText = `📦 عدد الطلبات: ${data.value}`;
+          });
+      });
+
+    // الانتقال للواتساب
+    window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
+  }
+
+  // عداد الزيارات
+  fetch('https://api.countapi.xyz/hit/mamlakat/visits')
     .then(res => res.json())
-    .then(data => document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: ${data.value}`);
-});
-
-function order(productName) {
-  fetch(`https://api.countapi.xyz/hit/mamlakat/${productName}`);
-  window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
-}
-
-fetch('https://api.countapi.xyz/hit/mamlakat/visits')
-  .then(res => res.json())
-  .then(data => document.getElementById('visit-counter').innerText = `👁️ عدد الزيارات: ${data.value}`);
-
+    .then(data => {
+      document.getElementById('visit-counter').innerText = `👁️ عدد الزيارات: ${data.value}`;
+    });
   </script>
-</body>
-</html>
