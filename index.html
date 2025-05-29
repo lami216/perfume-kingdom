@@ -1,105 +1,251 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head>
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>مملكة العطور | Mamlakat Al Otoor</title>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f5e4c3; color: #333; direction: rtl; }
-    header { background-color: #d4af37; color: white; padding: 1rem; text-align: center; }
-    .container { padding: 2rem; max-width: 1000px; margin: auto; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-    .product { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); text-align: center; position: relative; }
-    .product img { max-width: 100%; border-radius: 6px; height: 250px; object-fit: cover; }
-    .product h3 { margin: 0.5rem 0; }
-    .product button { background-color: #d4af37; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
-    .counter { font-size: 0.9rem; margin-top: 5px; color: #777; }
-    .info { margin-top: 3rem; background: #fff; padding: 1rem; border-radius: 8px; }
-    footer { background-color: #222; color: #ccc; text-align: center; padding: 1rem; margin-top: 3rem; }
-    .social { margin-top: 1rem; }
-    .social a { margin: 0 0.5rem; color: #ccc; text-decoration: none; }
-    .visits { margin-top: 1rem; font-size: 0.9rem; color: #999; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f5e4c3, #fff5e6);
+      color: #333;
+      direction: rtl;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }header {
+  background: linear-gradient(to right, #d4af37, #b8860b);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #b8860b;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.product img {
+  max-width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product h3 {
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+  color: #2c2c2c;
+}
+
+.product p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.product button {
+  background: linear-gradient(to right, #d4af37, #b8860b);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.product button:hover {
+  background: linear-gradient(to right, #b8860b, #d4af37);
+}
+
+.info {
+  margin-top: 3rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info h2 {
+  font-size: 1.8rem;
+  color: #2c2c2c;
+  margin-bottom: 1rem;
+}
+
+.info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info ul li {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+footer {
+  background: #222;
+  color: #ccc;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+
+.social {
+  margin-top: 1rem;
+}
+
+.social a {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  margin: 0 8px;
+  background: #333;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 45px;
+  font-size: 20px;
+  transition: background 0.3s ease;
+}
+
+.social a:hover {
+  background: #d4af37;
+  color: white;
+}
+
   </style>
 </head>
 <body>
   <header>
     <h1>مملكة العطور | Mamlakat Al Otoor</h1>
     <p>توصيل مجاني لجميع أنحاء موريتانيا - الدفع عند الاستلام في نواكشوط</p>
-  </header>
-  <div class="container">
-    <h2>عطورنا المختارة</h2>
-    <div class="product-grid" id="product-grid">
-      <!-- المنتجات ستُضاف تلقائياً من خلال السكربت -->
-    </div>
-    <div class="info">
-      <h2>لماذا تختار مملكة العطور؟</h2>
-      <ul>
-        <li>عطور أصلية مضمونة 100%</li>
-        <li>توصيل مجاني لجميع الولايات</li>
-        <li>الدفع عند الاستلام في نواكشوط</li>
-        <li>خدمة زبناء سريعة وموثوقة</li>
-      </ul>
-    </div>
-    <div class="info">
-      <h2>من نحن</h2>
-      <p>مملكة العطور هي مشروع متخصص في بيع العطور الأصلية بأسعار مناسبة وخدمة توصيل سريعة. هدفنا رضا الزبون وتوفير أفضل الروائح لكل الأذواق.</p>
-    </div>
-    <div class="visits" id="visit-counter">👁️ عدد الزيارات: ...</div>
-  </div>
-  <footer>
-    &copy; 2025 مملكة العطور | perfume kingdom 
+  </header>  <div class="container">
+    <input type="text" id="searchInput" placeholder="ابحث عن عطر..."><div id="searchSection" style="display: none;">
+  <h2>نتائج البحث</h2>
+  <div class="product-grid" id="searchResults"></div>
+</div>
+
+<h2>عطورنا المختارة</h2>
+<div class="product-grid" id="product-grid"></div>
+
+<div class="info">
+  <h2>لماذا تختار مملكة العطور؟</h2>
+  <ul>
+    <li>عطور أصلية مضمونة 100%</li>
+    <li>توصيل مجاني لجميع الولايات</li>
+    <li>الدفع عند الاستلام في نواكشوط</li>
+    <li>خدمة زبناء سريعة وموثوقة</li>
+  </ul>
+</div>
+
+<div class="info">
+  <h2>من نحن</h2>
+  <p>مملكة العطور هي مشروع متخصص في بيع العطور الأصلية بأسعار مناسبة وخدمة توصيل سريعة. هدفنا رضا الزبون وتوفير أفضل الروائح لكل الأذواق.</p>
+</div>
+
+  </div>  <footer>
+    © 2025 مملكة العطور | Perfume Kingdom
     <div class="social">
-      <a href="https://www.facebook.com/share/16NLtNg1nL/" target="_blank">فيسبوك</a>
-      <a href="https://www.tiktok.com/@perfume_kingdom_?_t=ZM-8wlUir02S5F&_r=1" target="_blank">تيكتوك</a>
+      <a href="tel:+22246099296" title="اتصال">
+        <i class="fas fa-phone"></i>
+      </a>
+      <a href="https://wa.me/22246099296" title="واتساب" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/share/16NLtNg1nL/" title="فيسبوك" target="_blank">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.tiktok.com/@perfume_kingdom_?_t=ZM-8wlUir02S5F&_r=1" title="تيك توك" target="_blank">
+        <i class="fab fa-tiktok"></i>
+      </a>
     </div>
-  </footer>
-  <script>
-  const products = [
-    { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', img: 'https://m.media-amazon.com/images/I/61Ar72XdNqL._AC_SY450_.jpg' },
-    { name: 'جوني بول', desc: 'عطر شبابي عصري بنفحات حارة', img: 'https://m.media-amazon.com/images/I/71zFq6fAlOL._AC_UL1500_.jpg' },
-    { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', img: 'https://m.media-amazon.com/images/I/61U1ZlHjTUL._AC_SY355_.jpg' },
-    { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', img: 'https://m.media-amazon.com/images/I/61C1uU23sAL._AC_SY355_.jpg' },
-    { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', img: 'https://m.media-amazon.com/images/I/61vAlOLP-4L._AC_SX466_.jpg' },
-    { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', img: 'https://m.media-amazon.com/images/I/61vVDzR6R-L._AC_UL1500_.jpg' },
-  ];
+  </footer>  <script>
+    const products = [
+      { name: 'الموصوف', desc: 'عطر رجالي شرقي فاخر يدوم طويلاً', img: 'Moosouf.jpg' },
+      { name: 'جون بول', desc: 'عطر شبابي عصري بنفحات حارة', img: 'jean_paul_gaultier.jpg' },
+      { name: 'ديور صوفاج', desc: 'أحد أشهر العطور الرجالية حول العالم', img: 'Dior_sauvage.jpg' },
+      { name: 'أوفيسر', desc: 'عطر رسمي أنيق يلائم جميع المناسبات', img: 'officer.jpg' },
+      { name: 'كلوب دا نوي', desc: 'عطر فاخر برائحة قوية وجذابة', img: 'Club_de_nuit.jpg' },
+      { name: 'أنا الملك', desc: 'عطر ملكي مميز يعكس شخصية قوية', img: 'Imtheking.jpg' },
+    ];
 
-  const productGrid = document.getElementById('product-grid');
+    const productGrid = document.getElementById('product-grid');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const searchSection = document.getElementById('searchSection');
 
-  products.forEach((product) => {
-    const key = encodeURIComponent(product.name);
-    const html = `
-      <div class="product">
-        <img src="${product.img}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p>${product.desc}</p>
-        <button onclick="order('${key}')">اطلب الآن</button>
-        <div class="counter" id="count-${key}">📦 عدد الطلبات: ...</div>
-      </div>
-    `;
-    productGrid.insertAdjacentHTML('beforeend', html);
+    function createProductHTML(product) {
+      return `
+        <div class="product">
+          <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/200?text=عطر'">
+          <h3>${product.name}</h3>
+          <p>${product.desc}</p>
+          <button onclick="order('${encodeURIComponent(product.name)}')">اطلب الآن</button>
+        </div>
+      `;
+    }
 
-    // تهيئة العدّاد عند أول زيارة (create=true)
-    fetch(`https://api.countapi.xyz/get/mamlakat/${key}?create=true`)
-      .then(res => res.json())
-      .then(data => {
-        const count = data.value ?? 0;
-        document.getElementById(`count-${key}`).innerText = `📦 عدد الطلبات: ${count}`;
-      });
-  });
-
-  function order(productName) {
-    fetch(`https://api.countapi.xyz/update/mamlakat/${productName}/?amount=1&create=true`)
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById(`count-${productName}`).innerText = `📦 عدد الطلبات: ${data.value}`;
-      });
-
-    window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
-  }
-
-  // عداد الزيارات - تهيئة ثم زيادة
-  fetch('https://api.countapi.xyz/update/mamlakat/visits/?amount=1&create=true')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('visit-counter').innerText = `👁️ عدد الزيارات: ${data.value}`;
+    products.forEach(product => {
+      productGrid.insertAdjacentHTML('beforeend', createProductHTML(product));
     });
-     </script>
+
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      searchResults.innerHTML = '';
+
+      if (query === '') {
+        searchSection.style.display = 'none';
+      } else {
+        searchSection.style.display = 'block';
+        products.forEach(product => {
+          if (product.name.toLowerCase().includes(query)) {
+            searchResults.insertAdjacentHTML('beforeend', createProductHTML(product));
+          }
+        });
+      }
+    });
+
+    function order(productName) {
+      window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)}`;
+    }
+  </script></body>
+</html>
