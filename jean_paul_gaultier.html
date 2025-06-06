@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="اكتشف عطر Jean Paul Gaultier Le Male Elixir الشبابي العصري بنفحات حارة، بسعر 100,000 أوقية أو التقسيمة 8,000 أوقية!">
+    <title>عطر Jean Paul Gaultier Le Male Elixir</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .perfume-container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2c2c2c;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .perfume-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .perfume-img:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            color: #d4af37;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .description {
+            color: #ccc;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .price {
+            font-size: 1.3em;
+            color: #d4af37;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .highlight {
+            color: #e74c3c;
+            font-style: italic;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+        .order-options {
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .order-options label {
+            margin: 0 10px;
+            color: #ccc;
+        }
+        .buy-btn {
+            background-color: #25D366;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .buy-btn:hover {
+            background-color: #1ebe57;
+        }
+        @media (max-width: 600px) {
+            .perfume-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .buy-btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="perfume-container">
+        <img src="jean_paul_gaultier_le_male_elixir.jpg" alt="عطر Jean Paul Gaultier Le Male Elixir" class="perfume-img">
+        <h1>Jean Paul Gaultier Le Male Elixir</h1>
+        <p class="description">استعد لتجربة عطرية تأسر الحواس مع Jean Paul Gaultier Le Male Elixir! عطر شبابي عصري يجمع بين النفحات الحارة المثيرة واللمسات الخشبية الدافئة، مع روائح العنبر والفانيليا التي تضفي جاذبية لا تُقاوم. مثالي للرجل العصري الواثق الذي يترك بصمة لا تُنسى.</p>
+        <p class="price">السعر الكامل: 100,000 أوقية</p>
+        <p class="price">التقسيمة (10 مل): 8,000 أوقية</p>
+        <div class="order-options">
+            <label><input type="radio" name="order-type" value="full" checked> العطر الكامل</label>
+            <label><input type="radio" name="order-type" value="split"> التقسيمة (10 مل)</label>
+        </div>
+        <p class="highlight">كمية محدودة! اطلبه الآن واستمتع بجاذبية تدوم طوال اليوم!</p>
+        <button class="buy-btn" onclick="orderNow()">اطلبه الآن</button>
+    </div>
+
+    <script>
+        function orderNow() {
+            const orderType = document.querySelector('input[name="order-type"]:checked').value;
+            let message = '';
+            if (orderType === 'full') {
+                message = 'أريد طلب عطر Jean Paul Gaultier Le Male Elixir - العطر الكامل (100,000 أوقية)';
+            } else {
+                message = 'أريد طلب عطر Jean Paul Gaultier Le Male Elixir - التقسيمة 10 مل (8,000 أوقية)';
+            }
+            const phoneNumber = 'YOUR_PHONE_NUMBER'; // استبدل بـ رقم الواتساب بتاعك (مثلاً +966123456789)
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

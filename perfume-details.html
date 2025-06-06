@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مملكة العطور | Perfume Kingdom</title>
+  <title>تفاصيل العطر - مملكة العطور</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
@@ -28,89 +28,49 @@
       margin: 0;
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
-    header p {
-      font-size: 1.1rem;
-      margin-top: 0.5rem;
-    }
     .container {
       max-width: 1200px;
       margin: auto;
       padding: 2rem;
     }
-    .search-bar {
-      margin-bottom: 2rem;
-      text-align: center;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .search-bar input {
-      padding: 0.75rem;
-      width: 100%;
-      max-width: 500px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-family: 'Cairo', sans-serif;
-    }
-    .search-bar input:focus {
-      outline: none;
-      border-color: #b8860b;
-      box-shadow: 0 0 5px rgba(184, 134, 11, 0.3);
-    }
-    .search-bar select {
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-family: 'Cairo', sans-serif;
-      background: #fff;
-      cursor: pointer;
-    }
-    .search-bar select:focus {
-      outline: none;
-      border-color: #b8860b;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      margin-top: 2rem;
-      background: #fff;
-      border-radius: 12px;
-      padding: 1rem;
-    }
-    .product {
+    .perfume-details {
       background: white;
-      padding: 1.5rem;
+      padding: 2rem;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 400px;
     }
-    .product img {
+    .perfume-details img {
       max-width: 100%;
-      height: 250px;
+      height: 300px;
       object-fit: cover;
       border-radius: 8px;
-      cursor: pointer;
+      margin-bottom: 1rem;
     }
-    .product h3 {
-      font-size: 1.4rem;
-      margin: 0.5rem 0;
+    .perfume-details h2 {
+      font-size: 2rem;
       color: #2c2c2c;
-      flex-grow: 1;
+      margin-bottom: 1rem;
     }
-    .product p {
-      font-size: 0.95rem;
+    .perfume-details p {
+      font-size: 1.1rem;
       color: #666;
       margin-bottom: 1rem;
     }
-    .product button.order-btn {
+    .perfume-details .symbols {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .order-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .order-buttons button {
       background: linear-gradient(to right, #d4af37, #b8860b);
       color: white;
       border: none;
@@ -118,140 +78,53 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 1rem;
-      width: 100%;
-      margin-bottom: 0.5rem;
-      order: 2;
+      font-family: 'Cairo', sans-serif;
     }
-    .product button.order-btn:hover {
+    .order-buttons button:hover {
       background: linear-gradient(to right, #b8860b, #d4af37);
     }
-    .size-options {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      order: 3;
-    }
-    .size-btn {
-      padding: 0.4rem 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #f9f9f9;
-      font-size: 0.85rem;
-      font-family: 'Cairo', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .size-btn.selected {
-      background: #28a745;
-      color: white;
-      border-color: #28a745;
-    }
-    .size-btn:hover {
-      background: #e0e0e0;
-    }
-    .size-btn.selected:hover {
-      background: #218838;
-    }
-    .loading {
-      text-align: center;
-      padding: 2rem;
-      font-size: 1.2rem;
-      color: #666;
-    }
-    .no-results {
-      text-align: center;
-      padding: 2rem;
-      font-size: 1.2rem;
-      color: #666;
-    }
-    .symbols {
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      margin-bottom: 5px;
-      font-size: 1.2rem;
-    }
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: bold;
+    .back-link {
+      display: inline-block;
+      margin-top: 1rem;
       color: #b8860b;
-      text-align: center;
-      margin: 1.5rem 0;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .back-link:hover {
+      text-decoration: underline;
     }
     @media (max-width: 768px) {
-      .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-      }
-      .product {
+      .perfume-details {
         padding: 1rem;
-        min-height: 350px;
       }
-      .product img {
-        height: auto;
-        aspect-ratio: 1 / 1;
-        object-fit: contain;
-        max-height: 200px;
+      .perfume-details img {
+        height: 200px;
       }
-      .product h3 {
-        font-size: 1.2rem;
+      .perfume-details h2 {
+        font-size: 1.5rem;
       }
-      .product p {
-        font-size: 0.9rem;
+      .perfume-details p {
+        font-size: 0.95rem;
       }
-      .product button.order-btn {
+      .order-buttons button {
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
-      }
-      .size-btn {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .container {
-        padding: 1rem;
-      }
-      header h1 {
-        font-size: 1.8rem;
-      }
-      header p {
-        font-size: 0.9rem;
-      }
-      .search-bar input, .search-bar select {
-        max-width: 100%;
-      }
-      .size-btn {
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>مملكة العطور <br> Perfume Kingdom</h1>
-    <p>توصيل مجاني لجميع أنحاء موريتانيا <br> الدفع عند الاستلام في نواكشوط</p>
+    <h1>تفاصيل العطر</h1>
   </header>
   <div class="container">
-    <h2 id="main-title">عطورنا المختارة</h2>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="ابحث عن عطر..." aria-label="ابحث عن عطر بالاسم أو الوصف">
-      <select id="categoryFilter" aria-label="تصفية حسب نوع العطر">
-        <option value="all">جميع الأنواع</option>
-        <option value="men">رجالي</option>
-        <option value="women">نسائي</option>
-        <option value="unisex">مشترك</option>
-      </select>
+    <div class="perfume-details" id="perfume-details">
+      <p>جاري التحميل...</p>
     </div>
-    <div id="results-section"></div>
-    <div class="product-grid" id="product-grid">
-      <div class="loading">جاري التحميل...</div>
-    </div>
-    <div id="remaining-section"></div>
+    <a href="index.html" class="back-link">العودة إلى الصفحة الرئيسية</a>
   </div>
   <script>
-    // بيانات المنتجات (مع إضافة تفاصيل إضافية)
+    // بيانات العطور (نفس البيانات الموجودة في index.html)
     const productsData = {
       products: [
         { 
@@ -549,52 +422,39 @@
       }
     };
 
-    let products = productsData.products;
-    let productSymbols = productsData.symbols;
-    const productGrid = document.getElementById('product-grid');
-    const searchInput = document.getElementById('searchInput');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const resultsSection = document.getElementById('results-section');
-    const remainingSection = document.getElementById('remaining-section');
-    const mainTitle = document.getElementById('main-title');
+    // جلب اسم العطر من الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    let perfumeName = urlParams.get('name');
+    
+    // تحويل الشرطات السفلية إلى مسافات
+    perfumeName = perfumeName.replace(/_/g, ' ');
+    
+    const perfume = productsData.products.find(p => p.name === perfumeName);
 
-    // دالة debounce لتقليل استدعاءات البحث
-    function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
+    // عرض تفاصيل العطر
+    const perfumeDetails = document.getElementById('perfume-details');
+    if (perfume) {
+      perfumeDetails.innerHTML = `
+        <img src="${perfume.img}" alt="${perfume.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=عطر'">
+        <h2>${perfume.name.replace(/_/g, ' ')}</h2>
+        <p>${perfume.desc}</p>
+        <div class="symbols">${productsData.symbols[perfume.name] || ''}</div>
+        <p><strong>الثبات:</strong> ${perfume.longevity}</p>
+        <p><strong>الأوقات المناسبة:</strong> ${perfume.suitableTimes}</p>
+        <p><strong>معنى الرموز:</strong> ${perfume.symbolsMeaning}</p>
+        <div class="order-buttons">
+          <button onclick="order('${encodeURIComponent(perfume.name)}', 'كامل')" aria-label="اطلب عطر ${perfume.name} بحجم كامل">اطلب كامل</button>
+          <button onclick="order('${encodeURIComponent(perfume.name)}', '10 مل')" aria-label="اطلب عطر ${perfume.name} بحجم 10 مل">اطلب 10 مل</button>
+        </div>
+      `;
+    } else {
+      perfumeDetails.innerHTML = '<p>العطر غير موجود.</p>';
     }
 
-    // دالة لعرض المنتجات
-    function displayProducts(filteredProducts = products) {
-      productGrid.innerHTML = '<div class="loading">جاري التحميل...</div>';
-      resultsSection.innerHTML = '';
-      remainingSection.innerHTML = '';
-      setTimeout(() => {
-        productGrid.innerHTML = '';
-        const searchTerm = searchInput.value.toLowerCase();
-        const category = categoryFilter.value;
-
-        let matchedProducts = filteredProducts;
-        let unmatchedProducts = products.filter(product => !matchedProducts.includes(product));
-
-        if (searchTerm || category !== 'all') {
-          mainTitle.style.display = 'none';
-
-          if (matchedProducts.length > 0) {
-            resultsSection.innerHTML = '<h2 class="section-title">النتائج</h2>';
-            productGrid.innerHTML = '';
-            matchedProducts.forEach((product, index) => {
-              const html = `
-                <div class="product">
-                  <a href="perfume-details.html?name=${encodeURIComponent(product.name)}">
-                    <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/250?text=عطر'">
-                  </a>
-                  <div class="symbols">${productSymbols[product.name] || ''}</div>
-                  
+    // دالة الطلب عبر واتساب
+    function order(productName, size) {
+      window.location.href = `https://wa.me/22246099296?text=مرحبًا، أرغب بطلب عطر ${decodeURIComponent(productName)} بحجم ${size} من صفحة التفاصيل`;
+    }
+  </script>
+</body>
+</html>
