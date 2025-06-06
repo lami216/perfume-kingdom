@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: lami216/perfume-kingdom
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "products"
+    label: "المنتجات"
+    folder: "_products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "name", label: "اسم العطر", widget: "string" }
+      - { name: "desc", label: "الوصف", widget: "string" }
+      - { name: "price", label: "السعر", widget: "number" }
+      - { name: "available", label: "متوفر؟", widget: "boolean", default: true }
+      - { name: "category", label: "الفئة", widget: "select", options: ["men", "women", "unisex"] }
+      - { name: "img", label: "صورة المنتج", widget: "image" }
