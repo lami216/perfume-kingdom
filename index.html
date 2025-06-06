@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مملكة العطور | Perfume Kingdom</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f5e4c3, #fff5e6);
+      color: #333;
+      direction: rtl;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #D4AF37, #FFD700);
+      color: #FFFFFF;
+      border-bottom: 2px solid #A67B00;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+    .logo span {
+      font-size: 20px;
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      order: -1;
+    }
+    .search-icon, .filter-icon {
+      cursor: pointer;
+      font-size: 20px;
+      color: white;
+    }
+    .filter-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 100;
+      width: 200px;
+    }
+    .filter-menu.show {
+      display: block;
+    }
+    .filter-menu select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    
+    /* Search Bar Styles */
+    .search-container {
+      display: none;
+      width: 100%;
+      padding: 10px 20px;
+      background: #f8f8f8;
+      border-bottom: 1px solid #ddd;
+    }
+    .search-container.show {
+      display: block;
+    }
+    .search-container input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    /* Simple Slider Styles */
+    .simple-slider {
+      background: linear-gradient(135deg, #f8f0e0, #fff9f0);
+      padding: 1rem;
+      margin: 1rem auto;
+      max-width: 1200px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .slider-container {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .slider-item {
+      min-width: 100%;
+      padding: 1rem;
+    }
+    
+    .slider-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+    
+    .slider-nav button {
+      background: rgba(212, 175, 55, 0.7);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .slider-nav button:hover {
+      background: rgba(212, 175, 55, 0.9);
+    }
+    
+    /* Main Content Styles */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .product {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 400px;
+      position: relative;
+    }
+    .product img {
+      max-width: 100%;
+      height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin: 0 auto;
+    }
+    .product h3 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0;
+      color: #2c2c2c;
+      flex-grow: 1;
+    }
+    .product .availability {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .product .availability.yes {
+      color: #28a745;
+    }
+    .product .availability.partial {
+      color: #ffc107;
+    }
+    .product .availability.no {
+      color: #dc3545;
+    }
+    .product p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .product .price {
+      font-weight: bold;
+      color: #D4AF37;
+      font-size: 1.1rem;
+    }
+    .product button.order-btn {
+      background: linear-gradient(to right, #d4af37, #b8860b);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s;
+    }
+    .product button.order-btn:hover {
+      background: linear-gradient(to right, #b8860b, #d4af37);
+    }
+    .size-options {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .size-btn {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9f9f9;
+      font-size: 0.85rem;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .size-btn.selected {
+      background: #28a745;
+      color: white;
+      border-color: #28a745;
+    }
+    .size-btn.unavailable {
+      background: #6c757d;
+      color: white;
+      cursor: not-allowed;
+    }
+    .size-btn:not(.unavailable):hover {
+      background: #e0e0e0;
+    }
+    .size-btn.selected:hover {
+      background: #218838;
+    }
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+      color: #666;
+    }
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+      color: #666;
+    }
+    .symbols {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+      font-size: 1.2rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #b8860b;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+    
+    /* Scroll to Top Button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #D4AF37;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      font-size: 20px;
+    }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: #25D366;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: all 0.3s;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(to right, #D4AF37, #FFD700);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.3s;
+    }
+    .social-links a:hover {
+      transform: scale(1.1);
+    }
+    .copyright {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+      .product {
+        padding: 1rem;
+        min-height: auto;
+      }
+      .product img {
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        max-height: 200px;
+      }
+      .product h3 {
+        font-size: 1.2rem;
+      }
+      .product p {
+        font-size: 0.9rem;
+      }
+      .product button.order-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      .whatsapp-float {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+      .logo img {
+        height: 30px;
+      }
+      .logo span {
+        font-size: 16px;
+      }
+      .social-links a {
+        width: 40px;
+        height: 40px;
+      }
+      .filter-menu {
+        left: 10px;
+        width: 180px;
+      }
+      .whatsapp-float {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+  <div class="header">
+    <div class="header-icons">
+      <div class="filter-icon" id="filterToggle">
+        <i class="fas fa-bars"></i>
+        <div class="filter-menu" id="filterMenu">
+          <select id="mobileCategoryFilter">
+            <option value="all">جميع الأنواع</option>
+            <option value="men">رجالي</option>
+            <option value="women">نسائي</option>
+            <option value="unisex">مشترك</option>
+          </select>
+          <select id="priceFilter">
+            <option value="all">جميع الأسعار</option>
+            <option value="0-20000">0 - 20,000 أوقية</option>
+            <option value="20000-40000">20,000 - 40,000 أوقية</option>
+            <option value="40000-60000">40,000 - 60,000 أوقية</option>
+            <option value="60000-80000">60,000 - 80,000 أوقية</option>
+            <option value="80000-100000">80,000 - 100,000 أوقية</option>
+            <option value="100000+">أكثر من 100,000 أوقية</option>
+          </select>
+        </div>
+      </div>
+      <div class="search-icon" id="searchToggle">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+    <div class="logo">
+      <span>Perfume Kingdom</span>
+      <img src="logo.png" alt="Logo">
+      <span dir="rtl">مملكة العطور</span>
+    </div>
+  </div>
+
+  <!-- Search Container -->
+  <div class="search-container" id="searchContainer">
+    <input type="text" id="searchInput" placeholder="ابحث عن عطر..." aria-label="ابحث عن عطر بالاسم أو الوصف">
+  </div>
+
+  <div class="container">
+    <!-- Simple Slider -->
+    <div class="simple-slider" id="simpleSlider">
+      <div class="slider-container" id="featuredSlider"></div>
+      <div class="slider-nav">
+        <button id="prevSlide"><i class="fas fa-chevron-right"></i></button>
+        <button id="nextSlide"><i class="fas fa-chevron-left"></i></button>
+      </div>
+    </div>
+
+    <h2 id="main-title">عطورنا المختارة</h2>
+    <div id="results-section"></div>
+    <div class="product-grid" id="product-grid">
+      <div class="loading">جاري التحميل...</div>
+    </div>
+    <div id="remaining-section"></div>
+  </div>
+  
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+  
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/22246099296" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Footer Section -->
+  <footer>
+    <h3>تواصل معنا</h3>
+    <div class="social-links">
+      <a href="https://wa.me/22246099296" title="واتساب" style="background-image: url('whatsapp-icon.png');"></a>
+      <a href="tel:+22246099296" title="اتصال هاتفي" style="background-image: url('call-icon.png');"></a>
+      <a href="https://www.facebook.com/share/1Be6a1c7qa/" title="فيسبوك" style="background-image: url('facebook-icon.png');"></a>
+      <a href="https://www.tiktok.com/@perfume_kingdom_?_t=ZM-8wtXyY1Wsac&_r=1" title="تيك توك" style="background-image: url('tiktok-icon.png');"></a>
+    </div>
+    <div class="copyright">
+      جميع الحقوق محفوظة &copy; <span id="current-year"></span> مملكة العطور
+    </div>
+  </footer>
+
+  <script>
+    
+     const productsData = {
+      products: [
+        { name: 'jean paul gaultier le male elixir', desc: 'عطر شبابي عصري بنفحات حارة - 100000 أوقية', img: 'jean_paul_gaultier_le_male_elixir.png', category: 'men', price: 100000, available: true },
+        { name: 'Dior sauvage', desc: 'أحد أشهر العطور الرجالية حول العالم - 100000 أوقية', img: 'Dior_sauvage_200ml.png', category: 'men', price: 100000, available: true },
+        { name: 'officer', desc: 'عطر رسمي أنيق يلائم جميع المناسبات - 15000 أوقية', img: 'officer.png', category: 'men', price: 15000, available: true },
+        { name: 'jean_paul_gaultier_paradise', desc: 'عطر نسائي فاخر بنفحات زهرية منعشة - 76200 أوقية', img: 'jean_paul_gaultier_paradise.png', category: 'women', price: 76200, available: true },
+        { name: 'tom_ford_noir', desc: 'عطر رجالي غامض بنفحات خشبية دافئة - 72000 أوقية', img: 'tom_ford_noir.png', category: 'men', price: 72000, available: false },
+        { name: '212_VIP_black', desc: 'عطر شبابي جريء بنكهات عصرية - 61000 أوقية', img: '212_VIP_black.png', category: 'men', price: 61000, available: true },
+        { name: 'Acqua_di_Gio_Armani', desc: 'عطر رجالي منعش مستوحى من البحر - 61000 أوقية', img: 'Acqua_di_Gio_Armani.png', category: 'men', price: 61000, available: true },
+        { name: 'La_Nuit_Trésor', desc: 'عطر نسائي رومانسي بنفحات الفانيليا - 58000 أوقية', img: 'La_Nuit_Tresor.png', category: 'women', price: 58000, available: true },
+        { name: 'MY_WAY', desc: 'عطر نسائي أنيق بنكهات زهرية مشرقة - 58000 أوقية', img: 'MY_WAY.png', category: 'women', price: 58000, available: true },
+        { name: 'Dolce_and_Gabbana_the_one', desc: 'عطر نسائي فاخر بنفحات شرقية دافئة - 57000 أوقية', img: 'Dolce_and_Gabbana_the_one.png', category: 'women', price: 57000, available: false },
+        { name: 'You_Intensely', desc: 'عطر نسائي قوي بنكهات فاكهية جذابة - 54000 أوقية', img: 'You_Intensely.png', category: 'women', price: 54000, available: true },
+        { name: 'Supremacy_Collectors_Edition', desc: 'عطر رجالي مميز بنفحات شرقية فاخرة - 38000 أوقية', img: 'Supremacy_Collector_s_Edition.png', category: 'men', price: 38000, available: true },
+        { name: 'Hawas_Black_Rasasi', desc: 'هوس اسود عطر رجالي قوي بنكهات خشبية منعشة - 38000 أوقية', img: 'Hawas_Black_Rasasi.png', category: 'men', price: 38000, available: true },
+        { name: 'Club_de_Nuit_Intense_Man_200ml', desc: 'عطر رجالي مكثف بنفحات فاكهية وعنبرية - 35000 أوقية', img: 'Club_de_Nuit_Intense_Man_200ml.png', category: 'men', price: 35000, available: true },
+        { name: 'Supremacy_Not_Only_Intense', desc: 'عطر رجالي عصري بنكهات قوية ومنعشة - 29000 أوقية', img: 'Supremacy_Not_Only_Intense.png', category: 'men', price: 29000, available: true },
+        { name: 'Oud_lavender', desc: 'عود لافندر عطر شرقي مميز يمزج العود واللافندر - 26000 أوقية', img: 'Oud_lavender.png', category: 'unisex', price: 26000, available: true },
+        { name: '9PM_rebel', desc: 'عطر شبابي مفعم بالحيوية بنكهات جريئة - 25000 أوقية', img: '9PM_Rebel.png', category: 'men', price: 25000, available: true },
+        { name: 'Liquid_Brun', desc: 'عطر رجالي كلاسيكي بنفحات خشبية دافئة - 23000 أوقية', img: 'Liquid_Brun.png', category: 'men', price: 23000, available: true },
+        { name: 'Odyssey_Spectra', desc: 'عطر منعش بنكهات مائية وفاكهية - 21000 أوقية', img: 'Odyssey_Spectra.png', category: 'unisex', price: 21000, available: true },
+        { name: 'hawas_elixir', desc: 'هوس الكسير عطر رجالي منعش بنكهات حمضية قوية - 20000 أوقية', img: 'hawas_elixir.png', category: 'men', price: 20000, available: true },
+        { name: 'Club_De_Nuit_Urban_Elixir', desc: 'عطر شبابي عصري بنكهات منعشة - 19000 أوقية', img: 'Club_De_Nuit_Urban_Elixir.png', category: 'men', price: 19000, available: true },
+        { name: '9am_Dive', desc: 'عطر منعش مستوحى من الصباح البارد - 19000 أوقية', img: '9am_Dive.png', category: 'unisex', price: 19000, available: true },
+        { name: 'Turathi_Blue', desc: 'عطر شرقي منعش بنفحات بحرية - 19000 أوقية', img: 'Turathi_Blue.png', category: 'unisex', price: 19000, available: true },
+        { name: 'Hawas_for_Him', desc: 'هوس فور هيم عطر رجالي منعش بنكهات مائية وحمضية - 16000 أوقية', img: 'Hawas_for_Him.png', category: 'men', price: 16000, available: true },
+        { name: '9PM', desc: 'عطر شبابي جذاب بنكهات فاكهية دافئة - 16000 أوقية', img: '9PM.png', category: 'men', price: 16000, available: true },
+        { name: 'Hawas_Ice_for_Him', desc: 'هوس آيس عطر رجالي منعش بنكهات جليدية - 16000 أوقية', img: 'Hawas_Ice_for_Him.png', category: 'men', price: 16000, available: true },
+        { name: 'Al_Wisam', desc: 'الوسام عطر شرقي كلاسيكي بنكهات دافئة - 15000 أوقية', img: 'Al_Wisam.png', category: 'unisex', price: 15000, available: true },
+        { name: 'Confidential', desc: 'عطر أنيق بنفحات غامضة وفاخرة - 15000 أوقية', img: 'Confidential.png', category: 'unisex', price: 15000, available: true },
+        { name: 'Supremacy Incense', desc: 'عطر رجالي فاخر - 15000 أوقية', img: 'Supremacy Incense.png', category: 'men', price: 15000, available: true },
+        { name: 'Mandarin Sky', desc: 'عطر رجالي منعش - 15000 أوقية', img: 'Mandarin Sky.png', category: 'men', price: 15000, available: true },
+        { name: 'Khamrah', desc: 'خمرة عطر مختلط برائحة القرفة والفانيليا - 13000 أوقية', img: 'Khamrah.png', category: 'unisex', price: 13000, available: true },
+        { name: 'Khamrah Qahwa', desc: 'خمرة قهوة عطر مختلط بنفحات القهوة والتوابل - 13000 أوقية', img: 'Khamrah Qahwa.png', category: 'unisex', price: 13000, available: true },
+        { name: 'Ra\'ed', desc: 'الرائد عطر رجالي شرقي - 12000 أوقية', img: 'Raed.png', category: 'men', price: 12000, available: true },
+        { name: 'Fakhar Lattafa Black', desc: 'فخر الطافة عطر رجالي فاخر - 12000 أوقية', img: 'Fakhar Lattafa Black.png', category: 'men', price: 12000, available: true },
+        { name: 'Fakhar Lattafa White', desc: 'فخر الطافة عطر نسائي أنيق - 12000 أوقية', img: 'Fakhar Lattafa White.png', category: 'women', price: 12000, available: true },
+        { name: 'Saheb White', desc: 'الصاحب عطر رجالي كلاسيكي - 10000 أوقية', img: 'Saheb White.png', category: 'men', price: 10000, available: true },
+        { name: 'Saheb Brown', desc: 'الصاحب عطر رجالي دافئ - 10000 أوقية', img: 'Saheb Brown.png', category: 'men', price: 10000, available: true },
+        { name: 'Asad', desc: 'أسد عطر رجالي قوي - 10000 أوقية', img: 'Asad.png', category: 'men', price: 10000, available: true },
+        { name: 'Box Musoof', desc: 'بوكس موصوف مجموعة عطور متنوعة - 10000 أوقية', img: 'Box Musoof.png', category: 'unisex', price: 10000, available: true }, 
+        { name: 'Bade\'e Al Oud', desc: 'بديع العود عطر مختلط برائحة العود - 10000 أوقية', img: 'Badee Al Oud.png', category: 'unisex', price: 10000, available: true },
+        { name: 'Mayar', desc: 'ميار عطر نسائي ناعم - 10000 أوقية', img: 'Mayar.png', category: 'women', price: 10000, available: true },
+        { name: 'Gissah', desc: 'قصة عطر نسائي جذاب - 9500 أوقية', img: 'Gissah.png', category: 'women', price: 9500, available: true },
+        { name: 'Asad Zinzibar', desc: 'أسد عطر رجالي بنفحات الزنجبيل - 8200 أوقية', img: 'Asad Zinzibar.png', category: 'men', price: 8200, available: true },
+        { name: 'Saif Al Batal', desc: 'سيف البطل عطر رجالي شرقي - 8000 أوقية', img: 'Saif Al Batal.png', category: 'men', price: 8000, available: true },
+        { name: 'EL GHAWAS', desc: 'الغواص عطر رجالي بحري - 8000 أوقية', img: 'EL GHAWAS.png', category: 'men', price: 8000, available: true },
+        { name: 'Fakhar Lattafa Gold', desc: 'فخر عطر رجالي فاخر - 8000 أوقية', img: 'Fakhar Lattafa Gold.png', category: 'men', price: 8000, available: true },
+        { name: 'Yara', desc: 'يارا عطر نسائي زهري - 7000 أوقية', img: 'Yara.png', category: 'women', price: 7000, available: true },
+        { name: 'Tamima', desc: 'تميمة عطر نسائي أنيق - 7000 أوقية', img: 'Tamima.png', category: 'women', price: 7000, available: true },
+        { name: 'Ramz Lattafa', desc: 'رمز الطافة عطر رجالي شرقي - 7000 أوقية', img: 'Ramz Lattafa.png', category: 'men', price: 7000, available: true },
+        { name: 'Ameerat Al Arab', desc: 'اميرة العرب عطر نسائي فاخر - 7000 أوقية', img: 'Ameerat Al Arab.png', category: 'women', price: 7000, available: true },
+        { name: 'Ana Abiyedh', desc: 'أنا الأبيض عطر مختلط برائحة المسك - 7000 أوقية', img: 'Ana Abiyedh.png', category: 'unisex', price: 7000, available: true },
+        { name: 'Sayaad Al Quloob', desc: 'صياد عطر رجالي جذاب - 7000 أوقية', img: 'Sayaad Al Quloob.png', category: 'men', price: 7000, available: true },
+        { name: 'moosouf', desc: 'موصوف عطر رجالي شرقي فاخر يدوم طويلاً - 5000 أوقية', img: 'Moosouf.png', category: 'men', price: 5000, available: true },
+        { name: 'In The Stars Body Lotion', desc: 'لوشن معطر برائحة النجوم مع مزيج من الفواكه والمسك الدافئ - 12000 أوقية', img: 'In_The_Stars_Body_Lotion.png', category: 'unisex', price: 12000, available: true },
+        { name: 'Into the Night perfume', desc: 'عطر نسائي غامض بنفحات التوت الأسود والفانيليا - 12000 أوقية', img: 'Into_the_Night_perfume.png', category: 'women', price: 12000, available: true },
+        { name: 'INTO THE NIGHT Body Lotion', desc: 'لوشن برائحة العطر الشهير Into the Night - 12000 أوقية', img: 'INTO_THE_NIGHT_Body_Lotion.png', category: 'women', price: 12000, available: false },
+        { name: 'You\'re The One', desc: 'عطر زهري فاخر بمزيج من الورد والفراولة - 12000 أوقية', img: 'Youre_The_One.png', category: 'women', price: 12000, available: true },
+        { name: 'Gingham', desc: 'عطر نقي ومنعش برائحة الزهور البيضاء والليمون - 12000 أوقية', img: 'Gingham.png', category: 'unisex', price: 12000, available: true },
+        { name: 'In the Stars', desc: 'عطر يجمع بين رائحة الكشمير والتمر الهندي - 12000 أوقية', img: 'In_the_Stars.png', category: 'unisex', price: 12000, available: true },
+        { name: 'Sense Laverne', desc: 'عطر رجالي قوي بنفحات الفلفل الأسود والعود - 25000 أوقية', img: 'Sense_Laverne.png', category: 'men', price: 25000, available: false }
+    
+      ],
+      symbols: {
+        'moosouf': '🍁❄️🌙',
+        'jean paul gaultier le male elixir': '🍁❄️🌙',
+        'Dior sauvage': '🌱☂️☀️',
+        'officer': '🌱🍁☀️',
+        'jean_paul_gaultier_paradise': '☂️🌱☀️',
+        'tom_ford_noir': '🍁❄️🌙',
+        '212_VIP_black': '🍁🌙',
+        'Acqua_di_Gio_Armani': '☂️🌱☀️',
+        'La_Nuit_Trésor': '🍁❄️🌙',
+        'MY_WAY': '🌱☂️☀️',
+        'Dolce_and_Gabbana_the_one': '🍁❄️🌙',
+        'You_Intensely': '🍁❄️🌙',
+        'Supremacy_Collectors_Edition': '🍁❄️🌙',
+        'Hawas_Black_Rasasi': '🌱☂️☀️',
+        'Club_de_Nuit_Intense_Man_200ml': '☂️☀️',
+        'Supremacy_Not_Only_Intense': '☂️🌱☀️',
+        'Oud_lavender': '🍁❄️🌙',
+        '9PM_rebel': '🍁🌙',
+        'Liquid_Brun': '🍁❄️🌙',
+        'Odyssey_Spectra': '☂️☀️',
+        'hawas_elixir': '☂️☀️',
+        'Club_De_Nuit_Urban_Elixir': '☂️🌱☀️',
+        '9am_Dive': '☂️🌱☀️',
+        'Turathi_Blue': '☂️☀️',
+        'Hawas_for_Him': '☂️☀️',
+        '9PM': '🍁🌙',
+        'Hawas_Ice_for_Him': '☂️☀️',
+        'Confidential': '🍁❄️🌙',
+        'Al_Wisam': '🍁❄️🌙',       
+        'Supremacy Incense': '🍁❄️🌙',
+        'Mandarin Sky': '🌱☀️',
+        'Khamrah': '🍁❄️🌙',
+        'Khamrah Qahwa': '🍁❄️🌙',
+        'Ra\'ed': '🍁❄️🌙',
+        'Fakhar Lattafa Black': '🍁❄️🌙',
+        'Fakhar Lattafa White': '🌱☀️',
+        'Saheb White': '🌱☀️',
+        'Saheb Brown': '🍁❄️🌙',
+        'Asad': '🍁❄️🌙',
+        'Bade\'e Al Oud': '🍁❄️🌙',
+        'Mayar': '🌱☀️',
+        'Gissah': '🍁❄️🌙',
+        'Asad Zanzibar': '🍁❄️🌙',
+        'Saif Al Batal': '🍁❄️🌙',
+        'EL GHAWAS': '🌱☀️',
+        'Fakhar Lattafa Gold': '🍁❄️🌙',
+        'Yara': '🌱☀️',
+        'Tamima': '🌱☀️',
+        'Ramz Lattafa': '🍁❄️🌙',
+        'Ameerat Al Arab': '🍁❄️🌙',
+        'Ana Abiyedh': '🌱☀️',
+        'Sayaad Al Quloob': '🍁❄️🌙',
+        'Box Musoof': '🍁❄️🌙',
+        'In The Stars Body Lotion': '❄️🌙',
+        'Into the Night perfume': '🌙🍁',
+        'INTO THE NIGHT Body Lotion': '🌙🍁',
+        'You\'re The One': '☀️🌱',
+        'Gingham': '☀️☂️',
+        'In the Stars': '❄️🌙',
+        'Sense Laverne': '🍁❄️'
+     
+      }
+    };   
+    
+    let products = productsData.products;
+    let productSymbols = productsData.symbols;
+    const productGrid = document.getElementById('product-grid');
+    const searchInput = document.getElementById('searchInput');
+    const resultsSection = document.getElementById('results-section');
+    const remainingSection = document.getElementById('remaining-section');
+    const mainTitle = document.getElementById('main-title');
+    const searchToggle = document.getElementById('searchToggle');
+    const filterToggle = document.getElementById('filterToggle');
+    const filterMenu = document.getElementById('filterMenu');
+    const mobileCategoryFilter = document.getElementById('mobileCategoryFilter');
+    const priceFilter = document.getElementById('priceFilter');
+    const searchContainer = document.getElementById('searchContainer');
+    const featuredSlider = document.getElementById('featuredSlider');
+    const prevSlideBtn = document.getElementById('prevSlide');
+    const nextSlideBtn = document.getElementById('nextSlide');
+    const scrollToTop = document.getElementById('scrollToTop');
+    const simpleSlider = document.getElementById('simpleSlider');
+
+    // إعداد السنة الحالية في الفوتر
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Toggle search bar
+    searchToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      searchContainer.classList.toggle('show');
+      if (searchContainer.classList.contains('show')) {
+        searchInput.focus();
+      }
+    });
+
+    // Toggle filter menu
+    filterToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      filterMenu.classList.toggle('show');
+      searchContainer.classList.remove('show');
+    });
+
+    // Close menus when clicking outside
+    document.addEventListener('click', function() {
+      filterMenu.classList.remove('show');
+      searchContainer.classList.remove('show');
+    });
+
+    // منع إغلاق القوائم عند النقر عليها
+    filterMenu.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    searchContainer.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Mobile category filter
+    mobileCategoryFilter.addEventListener('change', function() {
+      filterProducts();
+    });
+
+    // Price filter
+    priceFilter.addEventListener('change', function() {
+      filterProducts();
+    });
+
+    // البحث عند الكتابة مباشرة
+    searchInput.addEventListener('input', debounce(function() {
+      filterProducts();
+    }, 300));
+
+    // دالة debounce لتقليل استدعاءات البحث
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // دالة لعرض المنتجات
+    function displayProducts(filteredProducts = products) {
+      productGrid.innerHTML = '<div class="loading">جاري التحميل...</div>';
+      resultsSection.innerHTML = '';
+      remainingSection.innerHTML = '';
+      
+      setTimeout(() => {
+        productGrid.innerHTML = '';
+        const searchTerm = searchInput.value.toLowerCase();
+        const isFiltered = mobileCategoryFilter.value !== 'all' || priceFilter.value !== 'all' || searchTerm;
+
+        // إخفاء السلايدر إذا كان هناك بحث أو تصفية
+        simpleSlider.style.display = isFiltered ? 'none' : 'block';
+
+        // ترتيب المنتجات حسب السعر (الأغلى أولاً)
+        filteredProducts.sort((a, b) => b.price - a.price);
+        
+        let matchedProducts = filteredProducts;
+        let unmatchedProducts = products.filter(product => !matchedProducts.includes(product));
+
+        if (searchTerm) {
+          mainTitle.style.display = 'none';
+
+          if (matchedProducts.length > 0) {
+            resultsSection.innerHTML = '<h2 class="section-title">النتائج</h2>';
+            renderProducts(matchedProducts, productGrid);
+          } else {
+            resultsSection.innerHTML = '<p class="no-results">لا توجد منتجات مطابقة لبحثك</p>';
+          }
+
+          if (unmatchedProducts.length > 0) {
+            remainingSection.innerHTML = '<h2 class="section-title">عطورنا المختارة</h2>';
+            const remainingGrid = document.createElement('div');
+            remainingGrid.className = 'product-grid';
+            renderProducts(unmatchedProducts, remainingGrid);
+            remainingSection.appendChild(remainingGrid);
+          }
+        } else {
+          mainTitle.style.display = 'block';
+          renderProducts(filteredProducts, productGrid);
+        }
+      }, 500);
+    }
+
+    // دالة مساعدة لعرض المنتجات
+    function renderProducts(productsArray, container) {
+      productsArray.forEach((product, index) => {
+        const showSizeOptions = product.price > 11000;
+        const priceText = product.desc.split(' - ')[1];
+        const isAvailable = product.available;
+        const hasPartialAvailability = product.partialAvailable;
+        
+        const availabilityClass = isAvailable ? 'yes' : hasPartialAvailability ? 'partial' : 'no';
+        const availabilityText = isAvailable ? 'متوفر' : hasPartialAvailability ? 'متوفر (10 مل فقط)' : 'غير متوفر';
+        
+        const html = `
+          <div class="product" data-index="${index}">
+            <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/250?text=عطر'">
+            <div class="symbols">${productSymbols[product.name] || ''}</div>
+            <h3>${product.name.replace(/_/g, ' ')}</h3>
+            <div class="availability ${availabilityClass}">${availabilityText}</div>
+            <p>${product.desc.split(' - ')[0]}</p>
+            <p class="price">${priceText}</p>
+            <button class="order-btn" onclick="orderProduct(${index})">
+              اطلب الآن
+            </button>
+            ${showSizeOptions ? `
+            <div class="size-options">
+              <button class="size-btn ${isAvailable ? '' : 'unavailable'}" 
+                data-size="full" 
+                onclick="selectSize(this, ${index})">
+                كامل
+              </button>
+              <button class="size-btn ${hasPartialAvailability ? '' : 'hidden'}" 
+                data-size="10ml" 
+                onclick="selectSize(this, ${index})">
+                10 مل
+              </button>
+            </div>
+            ` : ''}
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+        
+        // تحديد الحجم الافتراضي
+        if (showSizeOptions) {
+          const productElement = container.lastElementChild;
+          const sizeOptions = productElement.querySelector('.size-options');
+          
+          if (hasPartialAvailability) {
+            sizeOptions.querySelector('[data-size="10ml"]').classList.add('selected');
+            products[index].selectedSize = '10ml';
+          } else if (isAvailable) {
+            sizeOptions.querySelector('[data-size="full"]').classList.add('selected');
+            products[index].selectedSize = 'full';
+          }
+        }
+      });
+    }
+
+    // دالة لتحديد الحجم
+    function selectSize(button, index) {
+      const productElement = button.closest('.product');
+      const buttons = productElement.querySelectorAll('.size-btn');
+      
+      // إزالة التحديد من جميع الأزرار
+      buttons.forEach(btn => {
+        btn.classList.remove('selected');
+        if (btn.dataset.size === 'full' && !products[index].available) {
+          btn.classList.add('unavailable');
+        } else {
+          btn.classList.remove('unavailable');
+        }
+      });
+      
+      // تحديد الزر المختار
+      button.classList.add('selected');
+      
+      // حفظ الاختيار في كائن المنتج
+      products[index].selectedSize = button.dataset.size;
+    }
+
+    // دالة الطلب عبر واتساب
+    function orderProduct(index) {
+      const product = products[index];
+      let sizeText = '';
+      let message = '';
+      
+      // تحديد الرسالة بناءً على الحجم المختار
+      if (product.selectedSize === 'full') {
+        sizeText = ' بحجم كامل';
+        if (!product.available) {
+          message = `مرحبًا، أرغب بالحجز المسبق لعطر ${product.name.replace(/_/g, ' ')}${sizeText}`;
+        } else {
+          message = `مرحبًا، أرغب بطلب عطر ${product.name.replace(/_/g, ' ')}${sizeText}`;
+        }
+      } else if (product.selectedSize === '10ml') {
+        sizeText = ' بحجم 10 مل';
+        message = `مرحبًا، أرغب بطلب عطر ${product.name.replace(/_/g, ' ')}${sizeText}`;
+      } else {
+        // إذا لم يتم اختيار حجم (للعطور التي لا تحتوي خيارات حجم)
+        message = `مرحبًا، أرغب بطلب عطر ${product.name.replace(/_/g, ' ')}`;
+      }
+      
+      // إرسال رسالة الواتساب
+      window.location.href = `https://wa.me/22246099296?text=${encodeURIComponent(message)}`;
+    }
+
+    // دالة تصفية المنتجات
+    function filterProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const category = mobileCategoryFilter.value;
+      const priceRange = priceFilter.value;
+      let filteredProducts = products;
+
+      if (searchTerm) {
+        filteredProducts = filteredProducts.filter(product =>
+          product.name.toLowerCase().includes(searchTerm) ||
+          product.desc.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      if (category !== 'all') {
+        filteredProducts = filteredProducts.filter(product => product.category === category);
+      }
+
+      if (priceRange !== 'all') {
+        if (priceRange.endsWith('+')) {
+          const minPrice = parseInt(priceRange.replace('+', ''));
+          filteredProducts = filteredProducts.filter(product => product.price >= minPrice);
+        } else {
+          const [minPrice, maxPrice] = priceRange.split('-').map(Number);
+          filteredProducts = filteredProducts.filter(product => product.price >= minPrice && product.price <= maxPrice);
+        }
+      }
+
+      displayProducts(filteredProducts);
+    }
+
+    // دالة لعرض المنتجات في السلايدر
+    function displaySliderProducts() {
+      featuredSlider.innerHTML = '';
+      
+      // إنشاء عنصر واحد فقط للسلايدر
+      const slide = document.createElement('div');
+      slide.className = 'slider-item';
+      featuredSlider.appendChild(slide);
+      
+      updateCurrentSlide(); // عرض أول منتج
+    }
+
+    // متغيرات السلايدر
+    let currentSlideIndex = 0;
+    let slideInterval;
+
+    // دالة لتحديث الشريحة الحالية
+    function updateCurrentSlide() {
+      const slide = document.querySelector('.slider-item');
+      const product = products[currentSlideIndex];
+      const showSizeOptions = product.price > 11000;
+      const priceText = product.desc.split(' - ')[1];
+      const isAvailable = product.available;
+      const hasPartialAvailability = product.partialAvailable;
+      
+      const availabilityClass = isAvailable ? 'yes' : hasPartialAvailability ? 'partial' : 'no';
+      const availabilityText = isAvailable ? 'متوفر' : hasPartialAvailability ? 'متوفر (10 مل فقط)' : 'غير متوفر';
+      
+      slide.innerHTML = `
+        <div class="product" data-index="${currentSlideIndex}">
+          <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/250?text=عطر'">
+          <div class="symbols">${productSymbols[product.name] || ''}</div>
+          <h3>${product.name.replace(/_/g, ' ')}</h3>
+          <div class="availability ${availabilityClass}">${availabilityText}</div>
+          <p>${product.desc.split(' - ')[0]}</p>
+          <p class="price">${priceText}</p>
+          <button class="order-btn" onclick="orderProduct(${currentSlideIndex})">
+            اطلب الآن
+          </button>
+          ${showSizeOptions ? `
+          <div class="size-options">
+            <button class="size-btn ${isAvailable ? '' : 'unavailable'}" 
+              data-size="full" 
+              onclick="selectSize(this, ${currentSlideIndex})">
+              كامل
+            </button>
+            <button class="size-btn ${hasPartialAvailability ? '' : 'hidden'}" 
+              data-size="10ml" 
+              onclick="selectSize(this, ${currentSlideIndex})">
+              10 مل
+            </button>
+          </div>
+          ` : ''}
+        </div>
+      `;
+      
+      // تحديد الحجم الافتراضي للسلايدر
+      if (showSizeOptions) {
+        const sizeOptions = slide.querySelector('.size-options');
+        if (hasPartialAvailability) {
+          sizeOptions.querySelector('[data-size="10ml"]').classList.add('selected');
+          products[currentSlideIndex].selectedSize = '10ml';
+        } else if (isAvailable) {
+          sizeOptions.querySelector('[data-size="full"]').classList.add('selected');
+          products[currentSlideIndex].selectedSize = 'full';
+        }
+      }
+    }
+
+    // دالة للانتقال إلى شريحة معينة
+    function goToSlide(index) {
+      currentSlideIndex = (index + products.length) % products.length;
+      updateCurrentSlide();
+    }
+
+    // دالة للشريحة التالية
+    function nextSlide() {
+      goToSlide(currentSlideIndex + 1);
+    }
+
+    // دالة للشريحة السابقة
+    function prevSlide() {
+      goToSlide(currentSlideIndex - 1);
+    }
+
+    // بدء السلايدر التلقائي
+    function startSlider() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, 3000);
+    }
+
+    // أحداث الأزرار
+    nextSlideBtn.addEventListener('click', () => {
+      nextSlide();
+      startSlider(); // إعادة التشغيل بعد النقر
+    });
+
+    prevSlideBtn.addEventListener('click', () => {
+      prevSlide();
+      startSlider(); // إعادة التشغيل بعد النقر
+    });
+
+    // إظهار/إخفاء زر التمرير للأعلى
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollToTop.style.display = 'flex';
+      } else {
+        scrollToTop.style.display = 'none';
+      }
+    });
+
+    // التمرير للأعلى عند النقر
+    scrollToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // عرض المنتجات عند تحميل الصفحة
+    displayProducts();
+    displaySliderProducts();
+    startSlider();
+  </script>
+</body>
+</html>
