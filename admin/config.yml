@@ -1,13 +1,13 @@
 collections:
   - name: "products"
-    label: "المنتجات"
-    folder: "_products"
+    label: "المنتجات"  # تأكد من استخدام التسمية العربية
+    folder: "_products"  # يجب أن يطابق اسم المجلد الذي أنشأته
     create: true
     fields:
       - { name: "name", label: "اسم العطر", widget: "string" }
       - { name: "desc", label: "الوصف", widget: "text" }
       - { name: "img", label: "صورة المنتج", widget: "image" }
-      - { name: "category", label: "الفئة", widget: "select", options: ["men", "women", "unisex"] }
+      - { name: "category", label: "الفئة", widget: "select", options: ["men", "women", "unisex"] }  # تصحيح الخيارات
       - { name: "price", label: "السعر", widget: "number" }
       - { name: "available", label: "متوفرة", widget: "boolean", default: true }
       - { name: "symbols", label: "رموز المنتج", widget: "string" }
