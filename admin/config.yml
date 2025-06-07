@@ -1,3 +1,11 @@
+backend:
+  name: github
+  repo: lami216/perfume-kingdom
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
 collections:
   - name: "products"
     label: "المنتجات"
